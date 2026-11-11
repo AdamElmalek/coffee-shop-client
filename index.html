@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cafe App</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- Header (hidden on login screen) -->
+    <header class="header headerWrap" id="appHeader">
+        <div class="headerLeft">
+        </div>
+
+        <h1 class="title">Cafe App</h1>
+
+        <div class="headerRight">
+            <button class="iconBtn" id="menuBtn" type="button" aria-label="תפריט">☰</button>
+        </div>
+
+        <nav class="menuPanel" id="menuPanel" aria-label="תפריט ניווט">
+            <button class="menuLink" data-screen="dashboard" type="button">🏠 בית</button>
+            <button class="menuLink" data-screen="categories" type="button">📋 קטגוריות</button>
+            <button class="menuLink" data-screen="orders" type="button">🧾 ההזמנות שלי</button>
+            <button class="menuLink" data-screen="credit" type="button">💳 מועדון</button>
+        </nav>
+    </header>
+
+    <!-- Main -->
+    <main class="container pagePaddingBottom" id="appMain">
+        <!-- REGISTER (header + footer hidden) -->
+        <section class="screen" id="screen-register">
+            <div class="card loginBox">
+                <h2 class="sectionTitle">הרשמה למערכת</h2>
+                <div class="muted">הרשם כדי להמשיך</div>
+                <div class="sp12"></div>
+
+                <label class="label" for="regNickname">כינוי</label>
+                <input id="regNickname" class="input" type="text" placeholder="הכנס כינוי" />
+
+                <label class="label" for="regEmail">אימייל</label>
+                <input id="regEmail" class="input" type="email" placeholder="לדוגמה: user@example.com" />
+
+                <label class="label" for="regPassword">סיסמה</label>
+                <input id="regPassword" class="input" type="password" placeholder="מינימום 8 תווים" />
+
+                <button class="btn w100 mt12" id="registerBtn" type="button">הרשמה</button>
+                <div class="sp10"></div>
+                <div class="muted" style="text-align: center;">
+                    כבר יש לך חשבון? <a href="#" id="goToLoginLink" style="color: #6f4e37; text-decoration: underline; cursor: pointer;">התחבר כאן</a>
+                </div>
+                <div id="msgRegister" class="msg"></div>
+            </div>
+        </section>
+
+        <!-- LOGIN (header + footer hidden) -->
+        <section class="screen" id="screen-login">
+            <div class="card loginBox">
+                <h2 class="sectionTitle">כניסה למערכת</h2>
+                <div class="muted">הכנס פרטים כדי להמשיך</div>
+                <div class="sp12"></div>
+
+                <label class="label" for="loginNickname">כינוי</label>
+                <input id="loginNickname" class="input" type="text" placeholder="הכנס כינוי" />
+
+                <label class="label" for="loginEmail">אימייל</label>
+                <input id="loginEmail" class="input" type="email" placeholder="לדוגמה: user@example.com" />
+
+                <label class="label" for="loginPassword">סיסמה</label>
+                <input id="loginPassword" class="input" type="password" placeholder="הכנס סיסמה" />
+
+                <button class="btn w100 mt12" id="loginBtn" type="button">כניסה</button>
+                <div class="sp10"></div>
+                <div class="muted" style="text-align: center;">
+                    אין לך חשבון? <a href="#" id="goToRegisterLink" style="color: #6f4e37; text-decoration: underline; cursor: pointer;">הירשם כאן</a>
+                </div>
+                <div id="msgLogin" class="msg"></div>
+            </div>
+        </section>
+
+        <!-- DASHBOARD -->
+        <section class="screen" id="screen-dashboard">
+            <!-- 1) user greeting  -->
+            <div class="card fullWidth">
+                <div id="helloText" class="helloText"></div>
+                <div id="clockText" class="muted clockText"></div>
+                <div id="dailyGreet" class="muted mt10"></div>
+            </div>
+
+            <div class="sp12"></div>
+
+            <!-- 2) logo - clickable -->
+            <button class="card clickable fullWidth" id="goCats" type="button">
+                <div class="cardTitle">התפריט שלנו</div>
+                <div class="muted">לחץ למעבר למסך קטגוריות</div>
+                <div class="sp10"></div>
+                <img class="logo" id="logoImg" src="coffee-ph.jpg" alt="Coffee" />
+            </button>
+
+            <div class="sp12"></div>
+
+            <!-- 3) orders + credit -->
+            <div class="grid2">
+                <button class="card clickable" id="goOrders" type="button">
+                    <div class="cardTitle">ההזמנות שלי</div>
+                    <div class="muted">מעבר למסך הזמנות</div>
+                    <div id="lastOrderBox" class="muted mt10"></div>
+                </button>
+
+                <button class="card clickable" id="goCredit" type="button">
+                    <div class="cardTitle">מועדון לקוחות</div>
+                    <div class="balance mt10" id="dashBalance">₪0.00</div>
+                </button>
+            </div>
+
+            <div class="sp12"></div>
+
+            <!-- 4) histogram  -->
+            <div class="card fullWidth">
+                <div class="cardTitle">היסטוגרמה</div>
+                <div class="muted">כמות מוצרים שנקנו (מאז ועד היום)</div>
+                <div class="sp10"></div>
+                <div class="histWrap">
+                    <div class="histBars" id="histBars"></div>
+                    <div class="muted mt10" id="histHint"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATEGORIES -->
+        <section class="screen" id="screen-categories">
+            <div class="card">
+                <h2 class="sectionTitle">קטגוריות</h2>
+                <div class="sp12"></div>
+                <div class="grid3" id="catsGrid"></div>
+                <div id="msgCats" class="msg"></div>
+            </div>
+        </section>
+
+        <!-- ITEMS -->
+        <section class="screen" id="screen-items">
+            <div class="card">
+                <div class="row">
+                    <h2 class="sectionTitle" id="itemsTitle">פריטים</h2>
+                    <button class="btn secondary" id="backToCats" type="button">חזרה</button>
+                </div>
+                <div class="sp10"></div>
+                <div id="itemsList"></div>
+                <div id="msgItems" class="msg"></div>
+            </div>
+        </section>
+
+
+        <!-- ORDERS -->
+        <section class="screen" id="screen-orders">
+            <div class="card">
+                <div class="row">
+                    <h2 class="sectionTitle">ההזמנות שלי</h2>
+                    <button class="btn secondary" id="backToDash1" type="button">חזרה</button>
+                </div>
+                <div class="muted">ממויין לפי תאריך מהחדש לישן</div>
+                <div class="sp10"></div>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>תאריך</th>
+                            <th>שם פריט</th>
+                            <th>מחיר</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersBody"></tbody>
+                </table>
+
+                <div id="msgOrders" class="msg"></div>
+            </div>
+        </section>
+
+        <!-- CREDIT -->
+        <section class="screen" id="screen-credit">
+            <div class="card">
+                <div class="row">
+                    <h2 class="sectionTitle">כרטיס חבר נטען</h2>
+                    <button class="btn secondary" id="backToDash2" type="button">חזרה</button>
+                </div>
+
+                <div class="sp10"></div>
+
+                <div class="card creditCard">
+                    <div class="balance" id="creditBalanceText">₪0.00</div>
+                </div>
+
+                <div class="sp12"></div>
+
+                <label class="label" for="creditAmount">סכום לטעינה</label>
+                <input id="creditAmount" class="input narrow" type="number" min="1" step="1" />
+                <button class="btn mt12" id="loadCreditBtn" type="button">טען יתרה</button>
+
+                <div id="msgCredit" class="msg"></div>
+            </div>
+        </section>
+
+
+        <!-- ADMIN -->
+        <section class="screen" id="screen-admin">
+            <div class="card">
+                <div class="row">
+                    <h2 class="sectionTitle">מסך ניהול</h2>
+                    <button class="btn secondary" id="backToDash3" type="button">חזרה</button>
+                </div>
+
+                <div class="sp12"></div>
+
+                <div class="grid2">
+                    <div class="card">
+                        <div class="cardTitle">טעינת קובץ הזמנות </div>
+                        <div class="sp10"></div>
+                        <label for="ordersFile" class="fileLabel">
+                            <span id="ordersFileLabel">בחר קובץ</span>
+                            <input class="input" id="ordersFile" type="file" accept=".json" style="display: none;" />
+                        </label>
+                        <button class="btn mt12" id="loadOrdersBtn" type="button">טען הזמנות</button>
+                        <div id="msgAdminOrders" class="msg"></div>
+                    </div>
+
+                    <div class="card">
+                        <div class="cardTitle">טעינת קובץ פריטים </div>
+                        <div class="sp10"></div>
+                        <label for="itemsFile" class="fileLabel">
+                            <span id="itemsFileLabel">בחר קובץ</span>
+                            <input class="input" id="itemsFile" type="file" accept=".json" style="display: none;" />
+                        </label>
+                        <button class="btn mt12" id="loadItemsBtn" type="button">טען פריטים</button>
+                        <div id="msgAdminItems" class="msg"></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Bottom Navigation (hide on login screen) -->
+    <nav class="bottomNav" id="appFooter" aria-label="ניווט תחתון">
+        <div class="bottomNavInner">
+            <button class="navItem" data-screen="dashboard" id="navHome" type="button">
+                <div class="navEmoji">🏠</div><div class="navText">בית</div>
+            </button>
+            <button class="navItem" data-screen="categories" id="navCats" type="button">
+                <div class="navEmoji">📋</div><div class="navText">קטגוריות</div>
+            </button>
+            <button class="navItem" data-screen="admin" id="navAdmin" type="button">
+                <div class="navEmoji">⚙️</div><div class="navText">ניהול</div>
+            </button>
+            <button class="navItem" data-screen="credit" id="navCredit" type="button">
+                <div class="navEmoji">💳</div><div class="navText">מועדון</div>
+            </button>
+        </div>
+    </nav>
+
+    <script src="app.js"></script>
+</body>
+</html>
